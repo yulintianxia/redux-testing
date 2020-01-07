@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import store from './store';
-import { INPUTCHANGEVALUE, ADD, DEL, GET_LIST } from './store/actions';
-import { actionChangeValue, getTodoList } from './store/actionCreators';
+import { INPUTCHANGEVALUE, ADD, DEL, GET_LIST, GET_MY_LIST } from './store/actions';
+import { actionChangeValue, getTodoList,getSagaListAction } from './store/actionCreators';
 
 /*分离ui组件 */
 import TodolistUI from './TodoListUi';
@@ -28,9 +28,11 @@ class Todolist extends Component {
 
     }
     componentDidMount() {
-        /* 分离代码 */
-        let data = getTodoList();
-        actionChangeValue(GET_LIST, data);
+        /* 分离代码使用thunk, action 是一个函数*/
+        // let action = getTodoList();
+        // actionChangeValue(action);
+        /* 使用saga */
+        actionChangeValue(GET_MY_LIST);
     }
     /* 修改state */
     storeChange() {
